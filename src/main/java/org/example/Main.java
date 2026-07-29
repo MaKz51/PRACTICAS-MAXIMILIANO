@@ -122,10 +122,10 @@ public class Main {
         int nuevaEdad = teclado.nextInt();
         teclado.nextLine();
 
-        System.out.println("Escirba el nuevo sexo: ");
+        System.out.println("Escriba el nuevo sexo: ");
         String nuevoSexo = teclado.nextLine();
 
-        System.out.println("Escirba el nuevo correo: ");
+        System.out.println("Escriba el nuevo correo: ");
         String nuevoCorreo = teclado.nextLine();
 
         String sql = "UPDATE alumnos SET nombre = ?, edad = ?, sexo = ?, correo = ? WHERE matricula = ?";
@@ -148,10 +148,39 @@ public class Main {
         }
     }
     public static void VerCantidad() throws SQLException {
+        System.out.println("-CANTIDAD DE ALUMNOS-");
+        String sql = "SELECT sexo, COUNT(*) AS Total FROM alumnos GROUP BY sexo";
+        PreparedStatement comando = conexion.prepareStatement(sql);
+        ResultSet resultados = comando.executeQuery();
+        boolean hayDatos = false;
+        while(resultados.next()){
+            hayDatos = true;
+            String sexo = resultados.getString("sexo");
+            int cantidad = resultados.getInt("Total");
+            System.out.println("Sexo: " + sexo + " Total: " + cantidad + " alumnos");
 
+        }
+        if (!hayDatos){
+            System.out.println("Aun no hay alumnos registrados.");
+        }
     }
     public static void EliminarAlumno() throws SQLException {
+        System.out.println("-ELIMINAR ALUMNO-");
+        System.out.println("Ingrese la matrícula del alumno a eliminar.");
+        String matriculaBuscada = teclado.nextLine();
 
+        String sql = "DELETE FROM alumnos WHERE matricula = ?";
+
+        PreparedStatement comando = conexion.prepareStatement(sql);
+        comando.setString(1, matriculaBuscada);
+
+        int filasAfectadas = comando.executeUpdate();
+
+        if (filasAfectadas > 0){
+            System.out.println("Alumno Eliminado.");
+        }else{
+            System.out.println("No se encontró ningún alumno con esa matrícula.");
+        }
     }
 
 }
