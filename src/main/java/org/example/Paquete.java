@@ -17,4 +17,5 @@ public abstract class Paquete {
     public double getPesoKg() { return pesoKg; }
     public EstrategiaEnvio getEstrategia() { return estrategia; }
 
+    public abstract double obtenerCostoTotal();
 }
