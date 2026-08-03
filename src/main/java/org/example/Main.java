@@ -10,8 +10,7 @@ public class Main {
     public static PlataformaStreaming plataforma = new PlataformaStreaming();
     public static Connection conexion;
 
-    static String url = "jdbc:sqlserver://localhost\\SQLEXPRESS;database=STREAMING_POO;integratedSecurity=true;encrypt=true;trustServerCertificate=true;";
-
+    static String url = "jdbc:sqlserver://localhost\\SQLEXPRESS;database=STREAMING_POO;user=sa;password=Maxmi2017Th;encrypt=true;trustServerCertificate=true;";
     public static void main(String[] args) throws SQLException {
             conexion = DriverManager.getConnection(url);
             boolean ejecutar = true;
